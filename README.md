@@ -1,9 +1,5 @@
 # Nutty Nook
 
-Color scheme:
-
-Use earthy colors like shades of brown, green, and gray to represent the natural habitat of squirrels.
-Add accent colors like orange or yellow to make the design more lively.
 Typography:
 
 Choose a legible and stylish font for headings and body text. Google Fonts has a wide selection of fonts to choose from. Some suggestions include Open Sans, Roboto, Lato, or Nunito.
