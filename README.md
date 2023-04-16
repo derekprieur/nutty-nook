@@ -1,8 +1,5 @@
 # Nutty Nook
 
-Typography:
-
-Choose a legible and stylish font for headings and body text. Google Fonts has a wide selection of fonts to choose from. Some suggestions include Open Sans, Roboto, Lato, or Nunito.
 Layout and components:
 
 Header:
