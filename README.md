@@ -1,16 +1,5 @@
 # Nutty Nook
 
-Homepage:
-
-Include a full-width banner showcasing squirrels and nuts.
-Display a grid of featured products with images, names, prices, and "Add to Cart" buttons.
-Add a section showcasing popular nut categories, such as almonds, walnuts, peanuts, and cashews.
-Include a newsletter subscription section for users to stay updated on new products and promotions.
-Product listing page:
-
-Use a grid layout to display products with pagination.
-Add a sidebar with filters for nut types, price range, and ratings.
-Show a quick view option on hover for each product, displaying more details and "Add to Cart" button.
 Product detail page:
 
 Display a large product image with a gallery of additional images.
