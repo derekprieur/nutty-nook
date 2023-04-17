@@ -1,11 +1,15 @@
-import React from 'react'
-import { Banner, Header } from './components'
+import { Toaster } from 'react-hot-toast'
+
+import { Banner, FeaturedProducts, Header, NewsletterSubscription, PopularCategories } from './components'
 
 const Home = () => {
   return (
     <>
-      <Header />
       <Banner />
+      <FeaturedProducts />
+      <PopularCategories />
+      <NewsletterSubscription />
+      <Toaster />
     </>
   )
 }

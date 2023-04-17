@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { FaTimes, FaShoppingCart, FaUser, FaHome } from 'react-icons/fa';
+import { FaTimes, FaShoppingCart, FaUser, FaHome, FaBoxes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const MobileMenu = ({ setIsOpen }) => {
     const menuVariants = {
@@ -41,7 +42,15 @@ const MobileMenu = ({ setIsOpen }) => {
                 <ul className="mt-4">
                     <li className="flex items-center py-2 text-xl font-semibold">
                         <FaHome className="mr-3" />
-                        Home
+                        <Link to="/" onClick={() => setIsOpen(false)}>
+                            Home
+                        </Link>
+                    </li>
+                    <li className="flex items-center py-2 text-xl font-semibold">
+                        <FaBoxes className="mr-3" />
+                        <Link to="/products" onClick={() => setIsOpen(false)}>
+                            Products
+                        </Link>
                     </li>
                     <li className="flex items-center py-2 text-xl font-semibold">
                         <FaShoppingCart className="mr-3" />
