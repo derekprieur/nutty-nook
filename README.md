@@ -2,7 +2,6 @@
 
 Homepage:
 
-Add a section showcasing popular nut categories, such as almonds, walnuts, peanuts, and cashews.
 Include a newsletter subscription section for users to stay updated on new products and promotions.
 Product listing page:
 
