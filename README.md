@@ -1,12 +1,5 @@
 # Nutty Nook
 
-Layout and components:
-
-Header:
-
-Display your store logo on the left.
-Include a search bar in the center to allow users to search for products easily.
-Add icons for cart and user profile on the right.
 Homepage:
 
 Include a full-width banner showcasing squirrels and nuts.
