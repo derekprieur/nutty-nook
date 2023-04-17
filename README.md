@@ -1,13 +1,5 @@
 # Nutty Nook
 
-Homepage:
-
-Include a newsletter subscription section for users to stay updated on new products and promotions.
-Product listing page:
-
-Use a grid layout to display products with pagination.
-Add a sidebar with filters for nut types, price range, and ratings.
-Show a quick view option on hover for each product, displaying more details and "Add to Cart" button.
 Product detail page:
 
 Display a large product image with a gallery of additional images.
