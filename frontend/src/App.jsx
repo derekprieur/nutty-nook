@@ -1,9 +1,12 @@
 import React from 'react'
-import { Header } from './components'
+import { Banner, Header } from './components'
 
 const Home = () => {
   return (
-    <Header />
+    <>
+      <Header />
+      <Banner />
+    </>
   )
 }
 
