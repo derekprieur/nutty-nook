@@ -2,8 +2,6 @@
 
 Homepage:
 
-Include a full-width banner showcasing squirrels and nuts.
-Display a grid of featured products with images, names, prices, and "Add to Cart" buttons.
 Add a section showcasing popular nut categories, such as almonds, walnuts, peanuts, and cashews.
 Include a newsletter subscription section for users to stay updated on new products and promotions.
 Product listing page:
