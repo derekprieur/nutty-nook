@@ -8,3 +8,6 @@ export { default as Sidebar } from './Sidebar';
 export { default as QuickView } from './QuickView';
 export { default as Pagination } from './Pagination';
 export { default as FilterCheckbox } from './FilterCheckbox';
+export { default as ShippingForm } from './ShippingForm';
+export { default as PaymentForm } from './PaymentForm';
+export { default as OrderReview } from './OrderReview';

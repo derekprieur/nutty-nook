@@ -54,7 +54,9 @@ const MobileMenu = ({ setIsOpen }) => {
                     </li>
                     <li className="flex items-center py-2 text-xl font-semibold">
                         <FaShoppingCart className="mr-3" />
-                        Cart
+                        <Link to='/cart' onClick={() => setIsOpen(false)}>
+                            Cart
+                        </Link>
                     </li>
                     <li className="flex items-center py-2 text-xl font-semibold">
                         <FaUser className="mr-3" />

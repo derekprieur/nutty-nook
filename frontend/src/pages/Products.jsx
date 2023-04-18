@@ -3,6 +3,7 @@ import { products } from '../constants/products';
 import { FaStar } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 import { Sidebar, QuickView, Pagination } from '../components';
 
@@ -67,13 +68,17 @@ const Products = () => {
                             className="bg-white rounded-lg p-4 flex flex-col items-center shadow-md hover:shadow-lg transition-shadow duration-300 relative group"
                         >
                             <QuickView product={product} />
-                            <img src={product.image} alt={product.name} className="w-24 h-24 mb-3 object-contain" />
-                            <h3 className="text-lg font-bold text-dark-brown mb-2">{product.name}</h3>
+                            <img src={product.images[0]} alt={product.name} className="w-24 h-24 mb-3 object-contain" />
+                            <h3 className="text-lg font-bold text-dark-brown mb-2">
+                                <Link to={`/product/${product.id}`} className="hover:text-medium-brown transition-colors duration-300">
+                                    {product.name}
+                                </Link>
+                            </h3>
                             <div className="flex items-center mb-4">
                                 {[1, 2, 3, 4, 5].map((star) => (
                                     <FaStar
                                         key={star}
-                                        className={star <= product.rating ? 'text-medium-brown' : 'text-gray-400'}
+                                        className={star <= product.rating ? 'text-medium-brown' : 'text-light-gray'}
                                     />
                                 ))}
                             </div>

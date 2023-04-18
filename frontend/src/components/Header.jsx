@@ -24,7 +24,9 @@ const Header = () => {
                 <Link to="/products" className="text-white">
                     Products
                 </Link>
-                <FaShoppingCart />
+                <Link to='/cart'>
+                    <FaShoppingCart />
+                </Link>
                 <FaUser />
             </div>
             <div className='md:hidden'>
