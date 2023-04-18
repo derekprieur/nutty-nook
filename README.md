@@ -1,11 +1,5 @@
 # Nutty Nook
 
-Product detail page:
-
-Display a large product image with a gallery of additional images.
-Show product name, price, description, and "Add to Cart" button.
-Include customer reviews and ratings.
-
 Cart:
 
 List the selected products with images, names, prices, and quantity options.
