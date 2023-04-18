@@ -1,11 +1,5 @@
 # Nutty Nook
 
-Cart:
-
-List the selected products with images, names, prices, and quantity options.
-Show the total price and a "Proceed to Checkout" button.
-Add an option to remove items from the cart.
-
 Checkout:
 
 Include a multi-step form for shipping information, payment details, and order review.
