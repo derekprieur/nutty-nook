@@ -1,8 +1,13 @@
 import { motion } from 'framer-motion';
 import { FaTimes, FaShoppingCart, FaUser, FaHome, FaBoxes } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MobileMenu = ({ setIsOpen }) => {
+    const cartItems = useSelector((state) => state.cart.items);
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const navigate = useNavigate();
+    const totalItems = cartItems.length
     const menuVariants = {
         open: { x: 0, opacity: 1 },
         closed: { x: '-100%', opacity: 0 },
@@ -11,6 +16,15 @@ const MobileMenu = ({ setIsOpen }) => {
     const backdropVariants = {
         open: { opacity: 1 },
         closed: { opacity: 0 },
+    };
+
+    const handleUserIconClick = () => {
+        if (isLoggedIn) {
+            navigate('/profile');
+        } else {
+            navigate('/login');
+        }
+        setIsOpen(false);
     };
 
     return (
@@ -52,13 +66,18 @@ const MobileMenu = ({ setIsOpen }) => {
                             Products
                         </Link>
                     </li>
-                    <li className="flex items-center py-2 text-xl font-semibold">
+                    <li className="flex items-center py-2 text-xl font-semibold relative">
                         <FaShoppingCart className="mr-3" />
                         <Link to='/cart' onClick={() => setIsOpen(false)}>
                             Cart
                         </Link>
+                        {totalItems > 0 && (
+                            <span className="absolute top-1 left-3 bg-dark-orange text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                                {totalItems}
+                            </span>
+                        )}
                     </li>
-                    <li className="flex items-center py-2 text-xl font-semibold">
+                    <li className="flex items-center py-2 text-xl font-semibold cursor-pointer" onClick={handleUserIconClick}>
                         <FaUser className="mr-3" />
                         Profile
                     </li>

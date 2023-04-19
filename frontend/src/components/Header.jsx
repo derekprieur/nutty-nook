@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaSearch, FaShoppingCart, FaUser, FaBars } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSearchTerm } from '../redux/searchSlice';
 
 import { MobileMenu } from './'
@@ -10,11 +10,22 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const cartItems = useSelector((state) => state.cart.items);
+    const totalItems = cartItems.length;
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
     const handleSearch = (event) => {
         if (event.key === 'Enter') {
             dispatch(setSearchTerm(event.target.value));
             navigate('/products');
+        }
+    };
+
+    const handleUserIconClick = () => {
+        if (isLoggedIn) {
+            navigate('/profile');
+        } else {
+            navigate('/login');
         }
     };
 
@@ -37,10 +48,15 @@ const Header = () => {
                 <Link to="/products" className="text-white">
                     Products
                 </Link>
-                <Link to='/cart'>
+                <Link to='/cart' className='relative'>
                     <FaShoppingCart />
+                    {totalItems > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-dark-orange text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                            {totalItems}
+                        </span>
+                    )}
                 </Link>
-                <FaUser />
+                <FaUser className='cursor-pointer' onClick={handleUserIconClick} />
             </div>
             <div className='md:hidden'>
                 <FaBars className='text-white text-lg cursor-pointer' onClick={() => setIsOpen(!isOpen)} />
