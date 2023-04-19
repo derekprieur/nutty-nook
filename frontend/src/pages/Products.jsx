@@ -4,8 +4,10 @@ import { FaStar } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Sidebar, QuickView, Pagination } from '../components';
+import { addToCart, updateCartItem, removeFromCart } from '../redux/cartSlice';
 
 const Products = () => {
     const [nutTypes, setNutTypes] = useState(products.map((product) => ({
@@ -20,10 +22,13 @@ const Products = () => {
     const [activePage, setActivePage] = useState(1);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const itemsPerPage = 8;
-
     const startIndex = (activePage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const visibleProducts = filteredProducts.slice(startIndex, endIndex);
+    const searchTerm = useSelector((state) => state.search.searchTerm);
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cart.items);
+    console.log(cartItems);
 
     useEffect(() => {
         const checkedNutTypeIds = nutTypes
@@ -33,9 +38,11 @@ const Products = () => {
         setFilteredProducts(products.filter((product) =>
             (checkedNutTypeIds.length === 0 || checkedNutTypeIds.includes(product.type)) &&
             product.price >= priceRange.min && product.price <= priceRange.max &&
-            product.rating >= rating
+            product.rating >= rating &&
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
         ));
-    }, [nutTypes, priceRange, rating]);
+    }, [nutTypes, priceRange, rating, searchTerm]);
+
 
     const handleNutTypeChange = (nutTypeId, checked) => {
         setNutTypes(nutTypes.map((nutType) => (
@@ -45,6 +52,19 @@ const Products = () => {
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product));
+    };
+
+    const handleUpdateCart = (productId) => {
+        const cartItem = cartItems.find((item) => item.id === productId);
+        if (cartItem && cartItem.quantity > 1) {
+            dispatch(updateCartItem({ productId, newQuantity: cartItem.quantity - 1 }));
+        } else if (cartItem && cartItem.quantity === 1) {
+            dispatch(removeFromCart(productId));
+        }
     };
 
     return (
@@ -67,7 +87,7 @@ const Products = () => {
                             key={product.id}
                             className="bg-white rounded-lg p-4 flex flex-col items-center shadow-md hover:shadow-lg transition-shadow duration-300 relative group"
                         >
-                            <QuickView product={product} />
+                            <QuickView product={product} cartItems={cartItems} onAddToCart={() => handleAddToCart(product)} onUpdateCart={() => handleUpdateCart(product.id)} />
                             <img src={product.images[0]} alt={product.name} className="w-24 h-24 mb-3 object-contain" />
                             <h3 className="text-lg font-bold text-dark-brown mb-2">
                                 <Link to={`/product/${product.id}`} className="hover:text-medium-brown transition-colors duration-300">
@@ -86,12 +106,19 @@ const Products = () => {
                         </div>
                     ))}
                 </div>
-                <Pagination
-                    itemsPerPage={itemsPerPage}
-                    totalItems={products.length}
-                    activePage={activePage}
-                    setActivePage={setActivePage}
-                />
+                {filteredProducts.length === 0 && (
+                    <div className="text-xl text-center text-dark-brown mt-8">
+                        No nuts found (winter am I right?). Please try adjusting the filters or search term.
+                    </div>
+                )}
+                {filteredProducts.length > 0 && (
+                    <Pagination
+                        itemsPerPage={itemsPerPage}
+                        totalItems={filteredProducts.length}
+                        activePage={activePage}
+                        setActivePage={setActivePage}
+                    />
+                )}
             </div>
         </div>
     );

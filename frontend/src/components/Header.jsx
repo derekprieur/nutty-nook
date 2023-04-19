@@ -1,11 +1,23 @@
 import { useState } from 'react';
 import { FaSearch, FaShoppingCart, FaUser, FaBars } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSearchTerm } from '../redux/searchSlice';
 
 import { MobileMenu } from './'
-import { Link } from 'react-router-dom';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleSearch = (event) => {
+        if (event.key === 'Enter') {
+            dispatch(setSearchTerm(event.target.value));
+            navigate('/products');
+        }
+    };
+
     return (
         <header className="flex items-center justify-between px-4 py-2 bg-light-brown md:px-6 md:py-4">
             <Link to="/" className='flex gap-2'>
@@ -18,6 +30,7 @@ const Header = () => {
                     type="text"
                     placeholder="Search nuts"
                     className="rounded-full pl-8 pr-4 py-1 bg-white text-medium-gray focus:outline-none focus:ring-2 focus:ring-light-gray md:pl-10 md:pr-5 md:py-2"
+                    onKeyDown={handleSearch}
                 />
             </div>
             <div className="md:flex items-center space-x-4 text-white hidden md:text-xl">

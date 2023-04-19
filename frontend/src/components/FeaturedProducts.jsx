@@ -1,15 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { products } from '../constants/products';
+// import { products } from '../constants/products';
 import { addToCart } from '../redux/cartSlice';
 
 const FeaturedProducts = () => {
     const [displayCount, setDisplayCount] = useState(4);
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
+    const [products, setProducts] = useState([]);
 
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/products');
+                const data = await response.json();
+                setProducts(data);
+                console.log(products);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        }
+        fetchProducts();
+    }, []);
 
     const handleShowMore = () => {
         setDisplayCount(displayCount + 4);
