@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { products } from '../constants/products';
 import { addToCart } from '../redux/cartSlice';
 
 const FeaturedProducts = () => {

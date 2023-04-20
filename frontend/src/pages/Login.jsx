@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 import { login } from '../redux/userSlice';
 
@@ -11,21 +12,23 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (email === 'user@example.com' && password === 'password') {
-            const userDetails = {
-                id: 1,
-                name: 'John Doe',
-                email: 'user@example.com',
-            };
-            dispatch(login(userDetails));
+
+        try {
+            const { data } = await axios.post('http://localhost:5000/users/login', {
+                email,
+                password,
+            });
+
+            dispatch(login(data.user));
+            localStorage.setItem('token', data.token);
             navigate('/profile');
-        } else {
-            console.log('Invalid email or password');
+        } catch (error) {
             toast.error('Invalid email or password');
         }
     };
+
 
     return (
         <div className="container mx-auto mt-10 max-w-md h-screen">
@@ -40,7 +43,7 @@ const LoginPage = () => {
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="border-2 border-gray-200 w-full py-2 px-4 rounded focus:outline-none focus:border-medium-brown"
+                        className="border-2 border-light-gray w-full py-2 px-4 rounded focus:outline-none focus:border-medium-brown"
                     />
                 </div>
                 <div className="mb-4">
@@ -52,7 +55,7 @@ const LoginPage = () => {
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="border-2 border-gray-200 w-full py-2 px-4 rounded focus:outline-none focus:border-medium-brown"
+                        className="border-2 border-light-gray w-full py-2 px-4 rounded focus:outline-none focus:border-medium-brown"
                     />
                 </div>
                 <button
@@ -62,6 +65,12 @@ const LoginPage = () => {
                     Login
                 </button>
             </form>
+            <p className="mt-4">
+                Don't have an account?{' '}
+                <Link to="/signup" className="text-medium-brown hover:text-dark-brown">
+                    Sign up
+                </Link>
+            </p>
         </div>
     );
 };

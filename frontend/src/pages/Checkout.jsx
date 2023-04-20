@@ -15,7 +15,7 @@ const Checkout = () => {
 
 
     return (
-        <div className="checkout-container">
+        <div className="checkout-container h-screen">
             {step === 0 && <ShippingForm onStepChange={handleStepChange} />}
             {step === 1 && (
                 <Elements stripe={stripePromise}>
