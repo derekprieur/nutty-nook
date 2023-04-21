@@ -11,7 +11,7 @@ const ProductDetail = () => {
     async function fetchProduct() {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:5000/products/${id}`);
+            const response = await fetch(`https://nutty-nook.onrender.com/products/${id}`);
             const data = await response.json();
             setProduct(data);
             console.log(data, 'data');
