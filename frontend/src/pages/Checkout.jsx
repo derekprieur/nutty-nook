@@ -1,13 +1,31 @@
 import { useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { useSelector } from 'react-redux';
 
-import { ShippingForm, PaymentForm, OrderReview } from '../components';
-
+import { ShippingForm, PaymentForm, OrderReview, OrderConfirmation } from '../components';
 
 const Checkout = () => {
-    const stripePromise = loadStripe("pk_live_51LYBY7Dp5GduYfsVaW4HqTKdTW82OuN3aCLuQH4gE3N9qqtxViniYKBkKu2k9xygkg3hphdpq4ZTbVbp2srwnlVp00dckK1vcJ");
+    const cartItems = useSelector((state) => state.cart.items);
+    const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
     const [step, setStep] = useState(0);
+
+    const orderDetails = {
+        items: cartItems,
+        shippingAddress: {
+            name: 'John Doe',
+            street: '123 Main St',
+            city: 'New York',
+            state: 'NY',
+            zipCode: '10001',
+            country: 'USA',
+        },
+        totalPrice: cartItems.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+        ),
+    };
+
 
     const handleStepChange = (newStep) => {
         setStep(newStep);
@@ -22,7 +40,8 @@ const Checkout = () => {
                     <PaymentForm onStepChange={handleStepChange} />
                 </Elements>
             )}
-            {step === 2 && <OrderReview onStepChange={handleStepChange} />}
+            {step === 2 && <OrderReview orderDetails={orderDetails} onStepChange={handleStepChange} />}
+            {step === 3 && <OrderConfirmation />}
         </div>
     );
 

@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion';
-import { FaTimes, FaShoppingCart, FaUser, FaHome, FaBoxes } from 'react-icons/fa';
+import { FaTimes, FaShoppingCart, FaUser, FaHome, FaBoxes, FaUserCheck } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const MobileMenu = ({ setIsOpen }) => {
     const cartItems = useSelector((state) => state.cart.items);
     const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const user = useSelector((state) => state.user.userDetails);
     const navigate = useNavigate();
     const totalItems = cartItems.length
+    console.log(user, 'user');
     const menuVariants = {
         open: { x: 0, opacity: 1 },
         closed: { x: '-100%', opacity: 0 },
@@ -78,8 +80,9 @@ const MobileMenu = ({ setIsOpen }) => {
                         )}
                     </li>
                     <li className="flex items-center py-2 text-xl font-semibold cursor-pointer" onClick={handleUserIconClick}>
-                        <FaUser className="mr-3" />
-                        Profile
+                        <FaUser className={`${!isLoggedIn ? 'block' : 'hidden'} mr-3`} />
+                        <FaUserCheck className={`${isLoggedIn ? 'block' : 'hidden'} mr-3`} />
+                        {isLoggedIn ? `${user.name}` : 'Profile'}
                     </li>
                 </ul>
             </motion.div>

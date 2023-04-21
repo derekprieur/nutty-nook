@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaSearch, FaShoppingCart, FaUser, FaBars } from 'react-icons/fa';
+import { FaSearch, FaShoppingCart, FaUser, FaBars, FaUserCheck } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchTerm } from '../redux/searchSlice';
@@ -56,7 +56,8 @@ const Header = () => {
                         </span>
                     )}
                 </Link>
-                <FaUser className='cursor-pointer' onClick={handleUserIconClick} />
+                <FaUser className={`${!isLoggedIn ? 'block' : 'hidden'} cursor-pointer`} onClick={handleUserIconClick} />
+                <FaUserCheck className={`${isLoggedIn ? 'block' : 'hidden'} cursor-pointer`} onClick={handleUserIconClick} />
             </div>
             <div className='md:hidden'>
                 <FaBars className='text-white text-lg cursor-pointer' onClick={() => setIsOpen(!isOpen)} />

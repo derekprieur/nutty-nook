@@ -3,6 +3,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addToCart } from '../redux/cartSlice';
+import { Link } from 'react-router-dom';
 
 const FeaturedProducts = () => {
     const [displayCount, setDisplayCount] = useState(4);
@@ -16,7 +17,7 @@ const FeaturedProducts = () => {
                 const response = await fetch('http://localhost:5000/products');
                 const data = await response.json();
                 setProducts(data);
-                console.log(products);
+                console.log(products, 'products');
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
@@ -46,8 +47,12 @@ const FeaturedProducts = () => {
                     const cartItem = findCartItem(product.id);
                     return (
                         <div key={product.id} className="bg-white rounded-lg p-4 flex flex-col items-center shadow-md hover:shadow-lg transition-shadow duration-300">
-                            <img src={product.images[0]} alt={product.name} className="w-24 h-24 mb-3 object-contain" />
-                            <h3 className="text-lg font-bold text-dark-brown mb-2">{product.name}</h3>
+                            <Link to={`/products/${product.id}`}>
+                                <img src={product.images[0]} alt={product.name} className="w-24 h-24 mb-3 object-contain" />
+                            </Link>
+                            <Link to={`/products/${product.id}`}>
+                                <h3 className="text-lg font-bold text-dark-brown mb-2">{product.name}</h3>
+                            </Link>
                             <p className="text-medium-brown mb-4">${product.price.toFixed(2)}</p>
                             {cartItem ? (
                                 <div className="flex items-center">

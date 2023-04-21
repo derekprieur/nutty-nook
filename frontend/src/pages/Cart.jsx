@@ -9,7 +9,7 @@ const CartPage = () => {
     const [total, setTotal] = useState(0);
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
-    console.log(cartItems);
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
     useEffect(() => {
         const calculatedTotal = cartItems.reduce(
@@ -78,14 +78,25 @@ const CartPage = () => {
             <div className="flex justify-end mt-6">
                 <div className="text-right">
                     <p className='text-dark-brown'>Total: ${total.toFixed(2)}</p>
-                    <Link to='/checkout'>
-                        <button
-                            className="bg-medium-brown text-white rounded-lg px-6 py-2 mt-4"
-                            disabled={cartItems.length === 0}
-                        >
-                            Checkout
-                        </button>
-                    </Link>
+                    {!isLoggedIn ? ( // Only show the link to the checkout prompt if the user is not logged in
+                        <Link to='/checkout-prompt'>
+                            <button
+                                className="bg-medium-brown text-white rounded-lg px-6 py-2 mt-4"
+                                disabled={cartItems.length === 0}
+                            >
+                                Checkout
+                            </button>
+                        </Link>
+                    ) : (
+                        <Link to='/checkout'>
+                            <button
+                                className="bg-medium-brown text-white rounded-lg px-6 py-2 mt-4"
+                                disabled={cartItems.length === 0}
+                            >
+                                Checkout
+                            </button>
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>

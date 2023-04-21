@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { products } from '../constants/products';
 import { FaStar } from 'react-icons/fa';
 
 const ProductDetail = () => {
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { id } = useParams();
-    const product = products.find((product) => product.id.toString() === id);
+    const [activeImage, setActiveImage] = useState(null);
 
-    const [activeImage, setActiveImage] = useState(product.images[0]);
+    async function fetchProduct() {
+        try {
+            setLoading(true);
+            const response = await fetch(`http://localhost:5000/products/${id}`);
+            const data = await response.json();
+            setProduct(data);
+            console.log(data, 'data');
+            setActiveImage(data.images[0]);
+        } catch (error) {
+            console.error('Error fetching product:', error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchProduct();
+    }, []);
+
+    console.log(product, 'product');
+    console.log(loading, 'loading');
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="w-full mx-auto max-w-7xl p-8">
@@ -16,7 +41,7 @@ const ProductDetail = () => {
                 <div className="md:w-1/2 md:mr-8">
                     <img src={activeImage} alt={product.name} className="w-full h-auto mb-4" />
                     <div className="grid grid-cols-4 gap-2">
-                        {product.images.map((image, index) => (
+                        {product.images?.map((image, index) => (
                             <img
                                 key={index}
                                 src={image}
@@ -57,6 +82,13 @@ const ProductDetail = () => {
                             <span className="ml-2 text-medium-brown">{review.name}</span>
                         </div>
                         <p className="text-sm text-medium-brown mb-1">{review.date}</p>
+                        {review.image && (
+                            <img
+                                src={review.image}
+                                alt={`${review.name}'s review`}
+                                className="w-full h-auto max-w-sm mb-2 object-cover"
+                            />
+                        )}
                         <p className="text-dark-gray">{review.comment}</p>
                     </div>
                 ))}

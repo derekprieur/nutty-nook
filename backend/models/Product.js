@@ -12,7 +12,8 @@ const productSchema = new mongoose.Schema({
             rating: Number,
             name: String,
             date: String,
-            comment: String
+            comment: String,
+            image: { type: String, default: null },
         }
     ]
 });

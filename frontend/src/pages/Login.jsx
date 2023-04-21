@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
@@ -11,6 +11,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,7 +24,11 @@ const LoginPage = () => {
 
             dispatch(login(data.user));
             localStorage.setItem('token', data.token);
-            navigate('/profile');
+            if (location.state && location.state.redirectToCheckout) {
+                navigate('/checkout');
+            } else {
+                navigate('/profile');
+            }
         } catch (error) {
             toast.error('Invalid email or password');
         }
