@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { addToCart, updateCartItem } from '../redux/cartSlice';
 
 const ProductDetail = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
     const [activeImage, setActiveImage] = useState(null);
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cart.items);
+
+    const findCartItem = (productId) => {
+        return cartItems.find((item) => item.id === productId);
+    };
 
     async function fetchProduct() {
         try {
             setLoading(true);
-            const response = await fetch(`https://nutty-nook.onrender.com/products/${id}`);
+            const response = await fetch(`http://localhost:5000/products/${id}`);
             const data = await response.json();
             setProduct(data);
-            console.log(data, 'data');
             setActiveImage(data.images[0]);
         } catch (error) {
             console.error('Error fetching product:', error);
@@ -27,12 +35,22 @@ const ProductDetail = () => {
         fetchProduct();
     }, []);
 
-    console.log(product, 'product');
-    console.log(loading, 'loading');
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product));
+    };
+
+    const handleDecreaseQuantity = (productId) => {
+        const cartItem = cartItems.find((item) => item.id === productId);
+        if (cartItem && cartItem.quantity > 1) {
+            dispatch(updateCartItem({ productId, newQuantity: cartItem.quantity - 1 }));
+        }
+    };
 
     if (loading) {
         return <div>Loading...</div>;
     }
+
+    const cartItem = findCartItem(product.id);
 
     return (
         <div className="w-full mx-auto max-w-7xl p-8">
@@ -63,9 +81,36 @@ const ProductDetail = () => {
                         ))}
                     </div>
                     <p className="mb-4">{product.description}</p>
-                    <button className="bg-light-brown text-white px-4 py-2 rounded-lg hover:bg-medium-brown transition-colors duration-300">
-                        Add to Cart
-                    </button>
+                    {cartItem ? (
+                        <div className="flex items-center">
+                            <button
+                                className="bg-light-brown text-white px-2 py-1 rounded-l-lg hover:bg-medium-brown transition-colors duration-300"
+                                onClick={() => handleDecreaseQuantity(product.id)}
+                            >
+                                -
+                            </button>
+                            <input
+                                type="number"
+                                min="1"
+                                value={cartItem.quantity}
+                                className="w-10 text-center border-t border-b border-medium-brown"
+                                readOnly
+                            />
+                            <button
+                                className="bg-light-brown text-white px-2 py-1 rounded-r-lg hover:bg-medium-brown transition-colors duration-300"
+                                onClick={() => handleAddToCart(product)}
+                            >
+                                +
+                            </button>
+                        </div>
+                    ) : (
+                        <button
+                            className="bg-light-brown text-white px-4 py-2 rounded-lg hover:bg-medium-brown transition-colors duration-300"
+                            onClick={() => handleAddToCart(product)}
+                        >
+                            Add to Cart
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="reviews mt-8">

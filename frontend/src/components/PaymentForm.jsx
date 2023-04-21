@@ -6,7 +6,7 @@ const PaymentForm = ({ onStepChange }) => {
     const elements = useElements();
 
     const fetchClientSecret = async () => {
-        const response = await fetch('https://nutty-nook.onrender.com/payments', {
+        const response = await fetch('http://localhost:5000/payments', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,8 +18,6 @@ const PaymentForm = ({ onStepChange }) => {
             })
         });
         const data = await response.json();
-        console.log('Response data:', data);
-        console.log('Client secret:', data.client_secret);
         return data.client_secret;
     };
 
@@ -29,7 +27,6 @@ const PaymentForm = ({ onStepChange }) => {
         if (!stripe || !elements) return;
 
         const clientSecret = await fetchClientSecret();
-        console.log('Client secret fetched:', clientSecret);
 
         const result = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {

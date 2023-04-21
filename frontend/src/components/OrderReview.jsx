@@ -1,8 +1,16 @@
-const OrderReview = ({ orderDetails, onStepChange }) => {
+import axios from 'axios';
+
+const OrderReview = ({ orderDetails, onStepChange, userId }) => {
     const { shippingAddress, items, totalPrice } = orderDetails;
 
-    const handleConfirmOrder = () => {
-        onStepChange(3);
+    const handleConfirmOrder = async () => {
+        try {
+            const response = await axios.post('http://localhost:5000/orders/create', { ...orderDetails, userId });
+            console.log('Order created:', response.data);
+            onStepChange(3);
+        } catch (error) {
+            console.error('Error creating order:', error);
+        }
     };
 
     return (

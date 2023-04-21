@@ -14,7 +14,7 @@ const FeaturedProducts = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('https://nutty-nook.onrender.com/products');
+                const response = await fetch('http://localhost:5000/products');
                 const data = await response.json();
                 setProducts(data);
                 console.log(products, 'products');

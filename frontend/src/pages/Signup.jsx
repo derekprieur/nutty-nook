@@ -18,7 +18,7 @@ const Signup = () => {
         e.preventDefault();
         if (password === confirmPassword) {
             try {
-                const { data } = await axios.post('https://nutty-nook.onrender.com/users/signup', {
+                const { data } = await axios.post('http://localhost:5000/users/signup', {
                     name,
                     email,
                     password,
