@@ -6,7 +6,7 @@ const PaymentForm = ({ onStepChange }) => {
     const elements = useElements();
 
     const fetchClientSecret = async () => {
-        const response = await fetch('http://localhost:5000/payments', {
+        const response = await fetch('https://nutty-nook.onrender.com/payments', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

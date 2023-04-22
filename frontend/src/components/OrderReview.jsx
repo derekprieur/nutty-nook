@@ -5,7 +5,7 @@ const OrderReview = ({ orderDetails, onStepChange, userId }) => {
 
     const handleConfirmOrder = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/orders/create', { ...orderDetails, userId });
+            const response = await axios.post('https://nutty-nook.onrender.com/orders/create', { ...orderDetails, userId });
             console.log('Order created:', response.data);
             onStepChange(3);
         } catch (error) {

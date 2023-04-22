@@ -17,7 +17,7 @@ const LoginPage = () => {
         e.preventDefault();
 
         try {
-            const { data } = await axios.post('http://localhost:5000/users/login', {
+            const { data } = await axios.post('https://nutty-nook.onrender.com/users/login', {
                 email,
                 password,
             });
