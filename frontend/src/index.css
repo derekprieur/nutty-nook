@@ -2,3 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes scrolling {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .animate-scrolling {
+    animation: scrolling linear infinite;
+  }
+  

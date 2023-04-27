@@ -14,7 +14,7 @@ const FeaturedProducts = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('https://nutty-nook.onrender.com/products');
+                const response = await fetch(`${import.meta.env.VITE_PROD_BACKEND_URL}/products`);
                 const data = await response.json();
                 setProducts(data);
                 console.log(products, 'products');
@@ -44,7 +44,7 @@ const FeaturedProducts = () => {
             <h2 className="text-3xl font-bold text-dark-brown mb-4">Featured Products</h2>
             {!products.length ?
                 <p className='text-dark-brown animate-pulse'>Loading...</p> :
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {displayedProducts.map(product => {
                         const cartItem = findCartItem(product.id);
                         return (

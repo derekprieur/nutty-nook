@@ -1,10 +1,11 @@
 import { Toaster } from 'react-hot-toast'
 
-import { Banner, FeaturedProducts, Header, NewsletterSubscription, PopularCategories } from './components'
+import { Banner, FeaturedProducts, NewsletterSubscription, PopularCategories, ScrollingNotification } from './components'
 
 const Home = () => {
   return (
     <>
+      <ScrollingNotification />
       <Banner />
       <FeaturedProducts />
       <PopularCategories />

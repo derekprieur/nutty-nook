@@ -13,3 +13,4 @@ export { default as PaymentForm } from './PaymentForm';
 export { default as OrderReview } from './OrderReview';
 export { default as Footer } from './Footer';
 export { default as OrderConfirmation } from './OrderConfirmation';
+export { default as ScrollingNotification } from './ScrollingNotification';

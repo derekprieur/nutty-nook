@@ -20,6 +20,14 @@ const orderSchema = new mongoose.Schema({
         },
     ],
     totalPrice: Number,
+    orderNumber: {
+        type: Number,
+        required: true,
+    },
+    orderDate: {
+        type: Date,
+        required: true,
+    },
 });
 
 const Order = mongoose.model('Order', orderSchema);

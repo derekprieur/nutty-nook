@@ -20,7 +20,7 @@ const ProductDetail = () => {
     async function fetchProduct() {
         try {
             setLoading(true);
-            const response = await fetch(`https://nutty-nook.onrender.com/products/${id}`);
+            const response = await fetch(`${import.meta.env.VITE_PROD_BACKEND_URL}/products/${id}`);
             const data = await response.json();
             setProduct(data);
             setActiveImage(data.images[0]);

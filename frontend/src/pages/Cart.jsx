@@ -7,6 +7,8 @@ import { removeFromCart, updateCartItem } from '../redux/cartSlice';
 
 const CartPage = () => {
     const [total, setTotal] = useState(0);
+    const [discount, setDiscount] = useState(0);
+    const [discountCode, setDiscountCode] = useState('');
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
     const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -29,6 +31,13 @@ const CartPage = () => {
         dispatch(removeFromCart(productId));
     };
 
+    const handleDiscountCode = () => {
+        if (discountCode === 'NUTS') {
+            setDiscount(total * 0.2);
+        } else {
+            alert('Invalid discount code');
+        }
+    };
 
     return (
         <div className="p-8 max-w-7xl mx-auto h-screen">
@@ -77,8 +86,33 @@ const CartPage = () => {
             </div>
             <div className="flex justify-end mt-6">
                 <div className="text-right">
+                    <div className="mb-2">
+                        <input
+                            type="text"
+                            className="border-2 border-medium-brown rounded-lg p-1 mr-2"
+                            placeholder="Discount code"
+                            value={discountCode}
+                            onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+                        />
+                        <button
+                            className="bg-medium-brown text-white rounded-lg px-6 py-2 mt-4"
+                            onClick={handleDiscountCode}
+                        >
+                            Apply
+                        </button>
+                    </div>
                     <p className='text-dark-brown'>Total: ${total.toFixed(2)}</p>
-                    {!isLoggedIn ? ( // Only show the link to the checkout prompt if the user is not logged in
+                    {discount > 0 && (
+                        <>
+                            <p className="text-dark-brown">
+                                Discount: -${discount.toFixed(2)}
+                            </p>
+                            <p className="text-dark-brown">
+                                Total: ${(total - discount).toFixed(2)}
+                            </p>
+                        </>
+                    )}
+                    {!isLoggedIn ? (
                         <Link to='/checkout-prompt'>
                             <button
                                 className="bg-medium-brown text-white rounded-lg px-6 py-2 mt-4"

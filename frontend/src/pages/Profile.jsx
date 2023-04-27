@@ -1,14 +1,13 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { logout } from "../redux/userSlice";
+import { useEffect, useState } from "react";
+import { formatDate } from "../utils/formatDate";
 
 const Profile = () => {
-    const orderHistory = [
-        { id: 1, date: '2023-01-15', total: 54.99 },
-        { id: 2, date: '2023-02-10', total: 27.99 },
-        { id: 3, date: '2023-03-30', total: 89.99 },
-    ];
+    const [orderHistory, setOrderHistory] = useState([])
+    const user = useSelector((state) => state.user.userDetails);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -16,6 +15,21 @@ const Profile = () => {
         dispatch(logout());
         navigate('/');
     };
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_PROD_BACKEND_URL}/orders/user/${user._id}`);
+                const orders = await response.json();
+                console.log(orders, 'orders');
+                setOrderHistory(orders);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        };
+
+        fetchOrders();
+    }, []);
 
     return (
         <div className="container mx-auto mt-10 px-4 h-screen">
@@ -43,16 +57,16 @@ const Profile = () => {
                         </button>
                     </div>
                     <div className="w-full md:w-1/2 px-4">
-                        <h2 className="text-xl font-semibold mb-4">Order History</h2>
+                        <h2 className="text-xl font-semibold mb-4 mt-4 md:mt-0">Order History</h2>
                         <ul className="border-2 border-light-gray rounded py-2">
-                            {orderHistory.map((order) => (
+                            {orderHistory?.map((order) => (
                                 <li
                                     key={order.id}
-                                    className="flex justify-between items-center px-4 py-2 border-b-2 border-light-gray last:border-0"
+                                    className="flex justify-between px-4 py-2 border-b-2 border-light-gray last:border-0 flex-col"
                                 >
-                                    <span>Order #{order.id}</span>
-                                    <span>Date: {order.date}</span>
-                                    <span>Total: ${order.total.toFixed(2)}</span>
+                                    <span>Order #{order.orderNumber}</span>
+                                    <span>Date: {formatDate(order.orderDate)}</span>
+                                    <span>Total: ${order.totalPrice.toFixed(2)}</span>
                                 </li>
                             ))}
                         </ul>

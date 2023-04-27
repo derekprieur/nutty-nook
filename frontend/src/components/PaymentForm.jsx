@@ -6,7 +6,7 @@ const PaymentForm = ({ onStepChange }) => {
     const elements = useElements();
 
     const fetchClientSecret = async () => {
-        const response = await fetch('https://nutty-nook.onrender.com/payments', {
+        const response = await fetch(`${import.meta.env.VITE_PROD_BACKEND_URL}/payments`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

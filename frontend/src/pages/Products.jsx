@@ -68,7 +68,7 @@ const Products = () => {
     };
 
     return (
-        <div className="md:flex">
+        <div className="md:flex h-full lg:h-screen">
             <button
                 onClick={toggleSidebar}
                 className="md:hidden text-medium-brown px-4 py-2 rounded-md mb-4 flex items-center justify-center"

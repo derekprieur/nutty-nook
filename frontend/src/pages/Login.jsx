@@ -17,7 +17,7 @@ const LoginPage = () => {
         e.preventDefault();
 
         try {
-            const { data } = await axios.post('https://nutty-nook.onrender.com/users/login', {
+            const { data } = await axios.post(`${import.meta.env.VITE_PROD_BACKEND_URL}/users/login`, {
                 email,
                 password,
             });
@@ -36,7 +36,7 @@ const LoginPage = () => {
 
 
     return (
-        <div className="container mx-auto mt-10 max-w-md h-screen">
+        <div className="container mx-auto mt-10 max-w-md h-screen px-4">
             <h1 className="text-2xl font-semibold mb-6">Login</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
