@@ -6,7 +6,6 @@ const OrderReview = ({ orderDetails, onStepChange, userId }) => {
     const handleConfirmOrder = async () => {
         try {
             const response = await axios.post(`${import.meta.env.VITE_PROD_BACKEND_URL}/orders/create`, { ...orderDetails, userId });
-            console.log('Order created:', response.data);
             onStepChange(3);
         } catch (error) {
             console.error('Error creating order:', error);

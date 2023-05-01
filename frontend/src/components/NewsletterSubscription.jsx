@@ -6,7 +6,6 @@ const NewsletterSubscription = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(`Subscribed: ${email}`);
         setEmail('');
         toast.success('Welcome to the Nutty Nook family! 🐿️', { duration: 5000 });
     };

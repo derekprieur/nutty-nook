@@ -28,7 +28,6 @@ const Products = () => {
     const searchTerm = useSelector((state) => state.search.searchTerm);
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
-    console.log(cartItems);
 
     useEffect(() => {
         const checkedNutTypeIds = nutTypes

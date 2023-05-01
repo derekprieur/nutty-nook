@@ -13,8 +13,6 @@ const Contact = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission here, e.g., send an email or store the data
-        console.log(formData);
     };
 
     return (

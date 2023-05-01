@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const categories = [
     {
         id: 1,
@@ -28,7 +30,9 @@ const PopularCategories = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {categories.map(category => (
                     <div key={category.id} className="bg-white rounded-lg p-4 flex flex-col items-center shadow-md hover:shadow-lg transition-shadow duration-300">
-                        <img src={category.image} alt={category.name} className="w-24 h-24 mb-3 object-contain" />
+                        <Link to={`/products/${category.id}`}>
+                            <img src={category.image} alt={category.name} className="w-24 h-24 mb-3 object-contain" />
+                        </Link>
                         <h3 className="text-lg font-bold text-dark-brown">{category.name}</h3>
                     </div>
                 ))}

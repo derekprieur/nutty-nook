@@ -21,7 +21,6 @@ const Profile = () => {
             try {
                 const response = await fetch(`${import.meta.env.VITE_PROD_BACKEND_URL}/orders/user/${user._id}`);
                 const orders = await response.json();
-                console.log(orders, 'orders');
                 setOrderHistory(orders);
             } catch (error) {
                 console.error('Error fetching orders:', error);

@@ -38,7 +38,6 @@ const PaymentForm = ({ onStepChange }) => {
             console.error(result.error.message);
         } else {
             if (result.paymentIntent.status === 'succeeded') {
-                console.log('Payment succeeded');
                 onStepChange(2);
             } else {
                 console.log('Payment status:', result.paymentIntent.status);

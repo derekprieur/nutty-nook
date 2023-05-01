@@ -203,15 +203,12 @@ const products = [
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        console.log('Connected to MongoDB');
         return Product.deleteMany({});
     })
     .then(() => {
-        console.log('Deleted all existing products');
         return Product.insertMany(products);
     })
     .then(() => {
-        console.log('Inserted new products');
         mongoose.connection.close();
     })
     .catch((error) => {

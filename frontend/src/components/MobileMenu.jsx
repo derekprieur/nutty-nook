@@ -9,7 +9,6 @@ const MobileMenu = ({ setIsOpen }) => {
     const user = useSelector((state) => state.user.userDetails);
     const navigate = useNavigate();
     const totalItems = cartItems.length
-    console.log(user, 'user');
     const menuVariants = {
         open: { x: 0, opacity: 1 },
         closed: { x: '-100%', opacity: 0 },
