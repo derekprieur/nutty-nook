@@ -13,11 +13,15 @@ const Profile = () => {
 
     const handleSignOut = () => {
         dispatch(logout());
+        localStorage.removeItem('token');
         navigate('/');
     };
 
     useEffect(() => {
         const fetchOrders = async () => {
+            if (!user || !user._id) {
+                return
+            }
             try {
                 const response = await fetch(`${import.meta.env.VITE_PROD_BACKEND_URL}/orders/user/${user._id}`);
                 const orders = await response.json();
@@ -26,9 +30,8 @@ const Profile = () => {
                 console.error('Error fetching orders:', error);
             }
         };
-
         fetchOrders();
-    }, []);
+    }, [user]);
 
     return (
         <div className="container mx-auto mt-10 px-4 h-screen">

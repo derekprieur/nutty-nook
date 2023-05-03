@@ -16,6 +16,7 @@ const FeaturedProducts = () => {
     const [wishList, setWishList] = useState([])
 
     const fetchWishlist = async () => {
+        if (!user._id) return;
         try {
             const response = await fetch(`${import.meta.env.VITE_PROD_BACKEND_URL}/users/wishlist/${user._id}`);
             const data = await response.json();
@@ -37,7 +38,7 @@ const FeaturedProducts = () => {
         }
         fetchProducts();
         fetchWishlist();
-    }, []);
+    }, [user]);
 
     const handleShowMore = () => {
         setDisplayCount(displayCount + 4);

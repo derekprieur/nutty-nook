@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaSearch, FaShoppingCart, FaUser, FaBars, FaUserCheck } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchTerm } from '../redux/searchSlice';
+import axios from 'axios';
 
 import { MobileMenu } from './'
+import { login } from '../redux/userSlice';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +30,27 @@ const Header = () => {
             navigate('/login');
         }
     };
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            axios
+                .post(`${import.meta.env.VITE_PROD_BACKEND_URL}/users/validate-token`, { token })
+                .then((response) => {
+                    const { user } = response.data;
+                    if (user) {
+                        dispatch(login(user));
+                    } else {
+                        console.log('User not found');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error validating token', error);
+                });
+        } else {
+            console.log('No token found');
+        }
+    }, [dispatch]);
 
     return (
         <header className="flex items-center justify-between px-4 py-2 bg-light-brown md:px-6 md:py-4">
