@@ -10,6 +10,7 @@ import './index.css'
 import { Footer, Header } from './components'
 import store, { persistor } from './store'
 import { PersistGate } from 'redux-persist/integration/react'
+import { Error } from './pages'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='/signup' element={<Signup />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/checkout-prompt' element={<CheckoutPrompt />} />
+            <Route path='*' element={<Error />} />
           </Routes>
           <Footer />
           <Toaster />

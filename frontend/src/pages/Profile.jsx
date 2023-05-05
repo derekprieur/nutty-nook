@@ -7,6 +7,7 @@ import { formatDate } from "../utils/formatDate";
 
 const Profile = () => {
     const [orderHistory, setOrderHistory] = useState([])
+    const [editing, setEditing] = useState(false);
     const user = useSelector((state) => state.user.userDetails);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -15,6 +16,16 @@ const Profile = () => {
         dispatch(logout());
         localStorage.removeItem('token');
         navigate('/');
+    };
+
+    const handleEditProfile = () => {
+        console.log('Editing profile');
+        setEditing(true);
+        console.log(editing);
+    };
+
+    const handleSaveChanges = () => {
+        setEditing(false);
     };
 
     useEffect(() => {
@@ -42,21 +53,43 @@ const Profile = () => {
                         <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
                         <div className="mb-4">
                             <label htmlFor="name" className="block mb-2">Name:</label>
-                            <p id="name" className="border-2 border-light-gray w-full py-2 px-4 rounded">
-                                John Doe
-                            </p>
+                            {editing ? (
+                                <input
+                                    id="name"
+                                    className="border-2 border-light-gray w-full py-2 px-4 rounded"
+                                    defaultValue={user.name}
+                                />
+                            ) : (
+                                <p className="w-full py-2 px-4 rounded">
+                                    {user.name}
+                                </p>
+                            )}
                         </div>
                         <div className="mb-4">
                             <label htmlFor="email" className="block mb-2">Email:</label>
-                            <p id="email" className="border-2 border-light-gray w-full py-2 px-4 rounded">
-                                user@example.com
-                            </p>
+                            {editing ? (
+                                <input
+                                    id="email"
+                                    className="border-2 border-light-gray w-full py-2 px-4 rounded"
+                                    defaultValue={user.email}
+                                />
+                            ) : (
+                                <p className="w-full py-2 px-4 rounded">
+                                    {user.email}
+                                </p>
+                            )}
                         </div>
-                        <button
-                            className="bg-medium-brown hover:bg-dark-brown text-white py-2 px-4 rounded focus:outline-none"
-                        >
+                        <button className="bg-medium-brown hover:bg-dark-brown text-white py-2 px-4 rounded focus:outline-none" onClick={handleEditProfile}>
                             Edit Profile
                         </button>
+                        {editing && (
+                            <button
+                                onClick={handleSaveChanges}
+                                className="bg-medium-brown hover:bg-dark-brown text-white py-2 px-4 rounded focus:outline-none ml-4"
+                            >
+                                Save Changes
+                            </button>
+                        )}
                     </div>
                     <div className="w-full md:w-1/2 px-4">
                         <h2 className="text-xl font-semibold mb-4 mt-4 md:mt-0">Order History</h2>
