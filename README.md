@@ -25,7 +25,6 @@ Nutty Nook is designed to offer a smooth, engaging, and tailored shopping experi
 For the frontend, React was used to build the application's UI components, offering flexibility and efficient rendering. Tailwind CSS was employed for a visually appealing and responsive design, ensuring an engaging user experience on various devices.
 
 <br>
-<br>
 
 ### Backend
 
