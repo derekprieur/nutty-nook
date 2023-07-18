@@ -1,31 +1,43 @@
-# Nutty Nook
+<p align="center">
+<img alt='/' src="./frontend/public/nutty-nook.jpg" width="150px" height="auto"/>
+</p>
 
-Wishlist: Allow customers to create a wishlist of products they want to purchase later, making it easy for them to return and complete their purchase.
+<br>
+Nutty Nook is designed to offer a smooth, engaging, and tailored shopping experience for squirrel customers seeking a diverse range of high-quality nuts. With an intuitive user interface, advanced search and filtering options, and seamless checkout and payment process, the application aims to revolutionize the nut-buying experience in the squirrel community, providing a convenient and delightful one-stop destination for all their nut needs.
 
-Compare Products: Implement a product comparison feature to enable customers to compare the specifications, price, and other details of multiple products side by side.
+<br>
+<br>
 
-Loyalty Program: Develop a loyalty program to reward customers with points, discounts, or other benefits for their repeat purchases and engagement with your store.
+<p align="center">
+<img alt='/' src="./frontend/public/nutty.jpg" width="900px" height="auto"/>
+</p>
 
-Gift Cards & Certificates: Offer digital or physical gift cards and certificates that customers can purchase and send to friends and family.
+<p align="center">
+<img alt='/' src="./frontend/public/nutty4.jpg" width="900px" height="auto"/>
+</p>
 
-Referral Program: Create a referral program that rewards existing customers for referring new customers to your store.
+<br>
 
-Bundle Deals & Promotions: Offer bundle deals, promotions, or discounts on related products to encourage customers to make additional purchases.
+## Description
 
-Personalized Shopping Experience: Use machine learning and customer data to personalize the shopping experience, including product recommendations, homepage layout, and targeted promotions.
+### Frontend
 
-Multilingual & Multicurrency Support: Provide language and currency options to cater to customers from different countries and regions.
+For the frontend, React was used to build the application's UI components, offering flexibility and efficient rendering. Tailwind CSS was employed for a visually appealing and responsive design, ensuring an engaging user experience on various devices.
 
-In-Stock Notifications: Allow customers to sign up for notifications when out-of-stock items become available again.
+<br>
 
-Augmented Reality (AR) Integration: Incorporate AR technology to let customers visualize how the squirrel feeders or other accessories would look in their yard or garden.
+<p align="center">
+<img alt='/' src="src/assets/bluefin-modal.png" width="600px" height="auto"/>
+</p>
+<br>
 
-Blog & Content Integration: Seamlessly integrate your blog and other educational content into your ecommerce store to provide customers with valuable information and resources.
+### Backend
 
-Order Tracking: Implement a real-time order tracking system that allows customers to monitor their order status and shipment progress.
+<p> On the backend, Node.js provided a robust runtime environment for the server-side, enabling the development of scalable and high-performance APIs. MongoDB served as the primary database, ensuring efficient storage and retrieval of product and order information. To ensure secure user authentication and authorization, JSON Web Tokens (JWT) were implemented, providing a stateless and reliable method for managing user sessions. <p/>
+<br>
 
-Quick View: Add a quick view option for products, allowing customers to see essential information and add the item to their cart without leaving the current page.
+### Payments
 
-Exit-Intent Popups: Use exit-intent popups to offer special discounts or promotions when customers attempt to leave your website without completing a purchase.
+For handling payments, the Stripe API was integrated, offering a secure and user-friendly solution for processing transactions. Redux was employed to maintain a consistent application state, ensuring data is easily accessible and updated across the application, enhancing the overall user experience.
 
-Affiliate Program: Establish an affiliate program to incentivize influencers, bloggers, and other partners to promote your store and products in exchange for a commission.
+<br>
